@@ -67,7 +67,7 @@
     .then(function (res) { return res.json(); })
     .then(function (json) {
       if (json.success === 'true' || json.success === true) {
-        form.innerHTML = '<p style="padding:24px 0;font-size:1.1rem">Thank you — we\'ll be in touch within two working days.</p>';
+        form.innerHTML = '<p style="padding:24px 0;font-size:1.1rem">Thank you, we\'ll be in touch within two working days.</p>';
       } else {
         throw new Error();
       }
