@@ -1,0 +1,397 @@
+/* Renovatio IT shared stylesheet */
+
+:root{
+  --navy:#0e1b2e;
+  --navy-deep:#0a1422;
+  --slate:#1c2c44;
+  --gold:#c39a4d;
+  --gold-soft:#d9bd84;
+  --gold-ink:#8a6420;        /* accessible gold for light backgrounds */
+  --paper:#f7f4ec;
+  --white:#ffffff;
+  --ink:#16202e;
+  --ink-soft:#4c5a6d;
+  --muted:#8a93a3;
+  --line:rgba(195,154,77,.22);
+  --line-light:rgba(22,32,46,.13);
+  --flag-bad:#a8322d;         /* before / problem, on light backgrounds */
+  --flag-good:#2c6b45;        /* after / resolved, on light backgrounds */
+  --flag-bad-soft:#e08a83;    /* same pair, legible on navy */
+  --flag-good-soft:#7cbf98;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--navy);color:var(--paper);
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.14}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ---------- NAV ---------- */
+header.site{position:sticky;top:0;z-index:50;background:rgba(10,20,34,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.site{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:0;font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.02em;color:var(--paper)}
+.brand .mark{width:38px;height:38px;flex:none;margin-right:8px}
+.brand .it{font-size:.82em;font-weight:600;letter-spacing:.02em;
+  color:var(--navy-deep);background:var(--gold);padding:2px 3px 3px;border-radius:2px;margin-left:6px;line-height:1.05}
+.navlinks{display:flex;gap:30px;align-items:center;font-size:.9rem}
+/* :not(.btn) so the nav's own link colour doesn't outrank .btn-gold's navy text */
+.navlinks a:not(.btn){color:var(--paper-dim,#e8e3d6);transition:color .2s}
+.navlinks a:not(.btn):hover{color:var(--gold)}
+.navlinks a.is-active:not(.btn){color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:3px}
+.menu-btn{display:none;background:none;border:0;color:var(--paper);font-size:1.4rem;cursor:pointer;line-height:1}
+
+.btn{display:inline-block;padding:11px 22px;border-radius:2px;font-size:.85rem;font-weight:600;letter-spacing:.02em;transition:background .2s,border-color .2s,color .2s;border:1px solid var(--gold);cursor:pointer}
+.btn-gold{background:var(--gold);color:var(--navy-deep)}
+.btn-gold:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.btn-ghost{color:var(--gold);background:transparent}
+.btn-ghost:hover{background:rgba(195,154,77,.12)}
+
+/* ---------- BANDS ---------- */
+.band{padding:76px 0}
+.band--deep{background:var(--navy-deep);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.band--white{background:var(--white);color:var(--ink)}
+.band--paper{background:var(--paper);color:var(--ink);position:relative;isolation:isolate}
+.band--paper::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:url('../img/renovatio-cross-tile-dark.png');
+  background-size:200px 200px;background-repeat:repeat;background-attachment:fixed;
+  opacity:.4;
+}
+.band--white + .band--paper,.band--paper + .band--white{border-top:1px solid var(--line-light)}
+.band--tight-top{padding-top:60px}
+.band--tight{padding-top:52px;padding-bottom:52px}
+
+/* tiled cross pattern over a band's own background. The tile rides on a
+   low-opacity layer behind the content so it reads as texture rather than
+   competing with the text; url() is relative to this stylesheet, not the page. */
+.section-crosses{position:relative;isolation:isolate}
+.section-crosses::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:url('../img/renovatio-cross-tile-light.png');
+  background-size:200px 200px;background-repeat:repeat;background-attachment:fixed;
+  opacity:.07;
+}
+/* dark tile for the cream and white bands; the band supplies its own colour */
+.section-crosses--dark::after{background-image:url('../img/renovatio-cross-tile-dark.png');background-attachment:fixed;opacity:.4}
+.band--deep.section-crosses::after{opacity:.3}
+
+.sec-head{max-width:60ch;margin-bottom:54px}
+.sec-head--wide{max-width:none}
+.sec-head h2{font-size:clamp(2rem,3.6vw,2.9rem);margin:14px 0 16px}
+.sec-head p{color:#e8e3d6;font-size:1.05rem}
+
+/* light-band overrides */
+.light .eyebrow{color:var(--gold-ink)}
+.light .sec-head p,.light p{color:var(--ink-soft)}
+.light h1,.light h2,.light h3{color:var(--ink)}
+.light .btn-ghost{color:var(--gold-ink);border-color:var(--gold-ink)}
+.light .btn-ghost:hover{background:rgba(138,100,32,.08)}
+.light .btn-gold{background:var(--gold-ink);border-color:var(--gold-ink);color:#fff}
+.light .btn-gold:hover{background:#6f5019;border-color:#6f5019}
+
+/* ---------- PAGE HEADER (inner pages) ---------- */
+.page-head{position:relative;padding:76px 0 64px;overflow:hidden;border-bottom:1px solid var(--line)}
+.page-head::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 80% 0%,rgba(195,154,77,.14),transparent 62%)}
+.page-head .wrap{position:relative;display:flex;align-items:center;justify-content:space-between;gap:40px}
+.page-head h1{font-size:clamp(2.3rem,4.6vw,3.5rem);margin:14px 0 14px}
+.page-head p{color:#e8e3d6;font-size:1.08rem;max-width:52ch}
+.page-head .watermark{width:150px;flex:none;opacity:.28}
+
+/* ---------- HOME HERO ---------- */
+.hero{position:relative;padding:60px 0;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 90% at 60% 0%,rgba(195,154,77,.13),transparent 62%)}
+/* copy left, Agnus Dei right, so the hero fills the wrap instead of leaving
+   the right half empty */
+.hero-body{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,5.4vw,4.4rem);margin:20px 0 26px;max-width:22ch}
+.hero p.lede{font-size:1.18rem;color:#e8e3d6;max-width:54ch;margin-bottom:36px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+
+/* the brand name glossed like a dictionary entry, standing in for a lede */
+.etym{border-left:2px solid var(--gold);padding:2px 0 2px 24px;margin-bottom:36px;max-width:50ch}
+.etym-word{font-family:'Cormorant Garamond',serif;font-size:2.1rem;line-height:1.1;
+  color:var(--gold-soft);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.etym-word .pos{font-family:'Inter',system-ui,sans-serif;font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);font-weight:600}
+.etym-def{font-size:1.08rem;color:#e8e3d6;margin-top:12px}
+.etym-note{font-size:1.08rem;color:#e8e3d6;margin-top:12px}
+.hero-art{width:100%;max-width:430px;height:auto;justify-self:end}
+
+/* ---------- FACTS STRIP ---------- */
+.facts{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--navy-deep)}
+.facts .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:38px;padding-top:30px;padding-bottom:30px}
+/* rule sits centred in the 38px gutter without shifting the text */
+.facts .fact + .fact{border-left:1px solid var(--line);margin-left:-19px;padding-left:19px}
+.facts .label{display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);font-weight:600;margin-bottom:9px}
+.facts .fact p{font-family:'Cormorant Garamond',serif;font-size:1.15rem;line-height:1.3;color:#e8e3d6}
+
+/* ---------- CARDS ---------- */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.card{background:linear-gradient(165deg,var(--slate),rgba(14,27,46,.6));border:1px solid var(--line);border-radius:4px;padding:38px 34px;transition:border-color .25s}
+.card:hover{border-color:rgba(195,154,77,.5)}
+.card .tag{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.card h3{font-size:1.8rem;margin:12px 0 14px}
+.card p{color:#e8e3d6;margin-bottom:20px}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.card li{padding-left:26px;position:relative;font-size:.94rem;color:#e8e3d6}
+.card li::before{content:"✦";position:absolute;left:0;color:var(--gold);font-size:.8rem;top:2px}
+
+.light .card{background:var(--white);border-color:var(--line-light);box-shadow:0 1px 2px rgba(22,32,46,.05)}
+.light .card:hover{border-color:rgba(138,100,32,.45)}
+.light .card .tag{color:var(--gold-ink)}
+.light .card p,.light .card li{color:var(--ink-soft)}
+.light .card li::before{color:var(--gold-ink)}
+.band--white.light .card{background:var(--paper)}
+
+/* ---------- NUMBERED / REASON ITEMS ---------- */
+.why-item .n{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--gold);line-height:1}
+.why-item h3{font-size:1.4rem;margin:14px 0 10px}
+.why-item p{color:#e8e3d6;font-size:.95rem}
+.light .why-item .n{color:var(--gold-ink)}
+.light .why-item p{color:var(--ink-soft)}
+
+.steps{counter-reset:step;display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:64px 1fr;gap:26px;padding:28px 0;border-top:1px solid var(--line-light)}
+.step:last-child{border-bottom:1px solid var(--line-light)}
+.step .num{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-ink);line-height:1}
+.step h3{font-size:1.35rem;margin-bottom:8px}
+.step p{color:var(--ink-soft);font-size:.97rem;max-width:62ch}
+
+/* ---------- CASE STUDY ---------- */
+.case{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center;
+  border:1px solid var(--line);border-radius:4px;padding:40px;background:linear-gradient(160deg,var(--slate),rgba(14,27,46,.55))}
+.light .case{background:var(--white);border-color:var(--line-light)}
+.band--white.light .case{background:var(--paper)}
+/* case study with before/after screenshots stacks instead of splitting */
+.case--shots{grid-template-columns:1fr;gap:38px}
+
+/* ---------- BEFORE / AFTER REVEAL SLIDER ---------- */
+/* --pos is the divider position. JS syncs it to the range input; the 50%
+   default means the comparison still reads if JS never runs. */
+.reveal{--pos:50%;margin:0}
+.reveal-frame{position:relative;aspect-ratio:2880/1550;border-radius:4px;overflow:hidden;
+  border:1px solid var(--line);box-shadow:0 10px 30px rgba(10,20,34,.16)}
+.light .reveal-frame{border-color:var(--line-light)}
+.reveal-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reveal-old{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+
+/* red edge marks the old site, green edge the rebuilt one */
+.reveal-frame::before,.reveal-frame::after{content:"";position:absolute;top:0;bottom:0;width:4px;z-index:3}
+.reveal-frame::before{left:0;background:var(--flag-bad)}
+.reveal-frame::after{right:0;background:var(--flag-good)}
+
+.reveal-divider{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;
+  background:var(--gold);transform:translateX(-1px);z-index:4;pointer-events:none}
+.reveal-grip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:46px;height:46px;border-radius:50%;background:var(--gold);color:var(--navy-deep);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.35rem;font-weight:700;letter-spacing:.06em;line-height:1;
+  box-shadow:0 3px 12px rgba(10,20,34,.35)}
+
+/* the real control: full-bleed range input with an invisible thumb, so a click
+   or drag anywhere in the frame moves the divider */
+.reveal-range{position:absolute;inset:0;width:100%;height:100%;margin:0;z-index:5;
+  -webkit-appearance:none;appearance:none;background:transparent;cursor:ew-resize}
+.reveal-range::-webkit-slider-thumb{-webkit-appearance:none;width:46px;height:46px;
+  border-radius:50%;background:transparent;border:0;cursor:ew-resize}
+.reveal-range::-moz-range-thumb{width:46px;height:46px;border:0;border-radius:50%;
+  background:transparent;cursor:ew-resize}
+.reveal-range::-moz-range-track{background:transparent;border:0}
+.reveal-range:focus{outline:none}
+.reveal-range:focus-visible + .reveal-divider .reveal-grip{outline:3px solid var(--gold);outline-offset:3px}
+
+.reveal-legend{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:14px;
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+.reveal-legend .when--before{color:var(--flag-bad-soft)}
+.reveal-legend .when--after{color:var(--flag-good-soft)}
+.light .reveal-legend .when--before{color:var(--flag-bad)}
+.light .reveal-legend .when--after{color:var(--flag-good)}
+.reveal-hint{letter-spacing:.04em;text-transform:none;font-weight:400;font-size:.84rem;color:var(--muted)}
+.case .org{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.light .case .org{color:var(--gold-ink)}
+.case blockquote{font-family:'Cormorant Garamond',serif;font-size:1.6rem;line-height:1.34;margin:16px 0 18px;font-weight:500}
+.case .attrib{font-size:.92rem;color:#e8e3d6;margin-bottom:24px}
+.light .case .attrib{color:var(--ink-soft)}
+.case .attrib strong{color:inherit;font-weight:600}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:22px}
+.ba > div{background:var(--navy-deep);padding:18px 20px}
+.light .ba{background:var(--line-light);border-color:var(--line-light)}
+.light .ba > div{background:var(--white)}
+.band--white.light .ba > div{background:var(--paper)}
+.ba h4{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+.ba .before h4{color:var(--muted)}
+.ba .after h4{color:var(--gold)}
+.light .ba .after h4{color:var(--gold-ink)}
+.ba ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.ba li{font-size:.85rem;color:#e8e3d6;padding-left:16px;position:relative}
+.light .ba li{color:var(--ink-soft)}
+.ba li::before{content:"·";position:absolute;left:4px;color:var(--gold)}
+.light .ba li::before{color:var(--gold-ink)}
+.case .links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.visit{font-size:.88rem;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:2px;transition:border-color .2s}
+.visit:hover{border-color:var(--gold)}
+.light .visit{color:var(--gold-ink);border-color:rgba(138,100,32,.3)}
+.light .visit:hover{border-color:var(--gold-ink)}
+
+/* ---------- TEAM ---------- */
+.member{text-align:center}
+.member .avatar{aspect-ratio:1;max-width:320px;border-radius:4px;border:1px solid var(--line);overflow:hidden;
+  background:linear-gradient(160deg,#223453,#0c1626);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.light .member .avatar{background:linear-gradient(160deg,#efe9dc,#e2dbc9);border-color:var(--line-light)}
+.member .avatar img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.member .avatar span{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--gold);opacity:.9}
+.light .member .avatar span{color:var(--gold-ink)}
+.member h3{font-size:1.5rem;margin-bottom:4px}
+.member .role{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+.light .member .role{color:var(--gold-ink)}
+.member p{font-size:.93rem;color:#e8e3d6;max-width:34ch;margin:0 auto}
+.light .member p{color:var(--ink-soft)}
+.member .patron{margin-top:12px;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.02rem;color:var(--gold-soft)}
+.light .member .patron{color:var(--gold-ink)}
+
+/* ---------- PERSONAL REFERENCES ---------- */
+/* a quote with the referee's face and relation beneath it, rather than an
+   organisation, since these vouch for the people not the work */
+.ref{display:flex;flex-direction:column;gap:24px;padding:34px 32px;border-radius:4px;
+  background:var(--white);border:1px solid var(--line-light);box-shadow:0 1px 2px rgba(22,32,46,.05)}
+.band--white.light .ref{background:var(--paper)}
+.ref blockquote{flex:1;font-family:'Cormorant Garamond',serif;font-size:1.3rem;line-height:1.4;font-weight:500}
+.ref figcaption{display:flex;align-items:center;gap:16px;
+  border-top:1px solid var(--line-light);padding-top:20px}
+.ref-face{width:58px;height:58px;flex:none;border-radius:50%;object-fit:cover;object-position:center top}
+.ref figcaption strong{display:block;font-size:.98rem;font-weight:600;color:var(--ink)}
+.ref-who{display:block;font-size:.88rem;color:var(--ink-soft);margin:1px 0 5px}
+.ref-rel{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);font-weight:600}
+
+/* ---------- ENDORSEMENT ---------- */
+.endorse{display:flex;align-items:center;gap:20px;max-width:660px;margin:56px auto 0;
+  padding:22px 28px;border:1px solid var(--line);border-radius:4px;background:rgba(255,255,255,.04)}
+.light .endorse{border-color:var(--line-light);background:var(--white)}
+.band--white.light .endorse{background:var(--paper)}
+.endorse img{width:46px;flex:none}
+.endorse p{font-size:.95rem;margin:0}
+.endorse .who{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);font-weight:600;margin-bottom:6px}
+.light .endorse .who{color:var(--gold-ink)}
+
+/* ---------- SPLIT / PANEL ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.panel{border:1px solid var(--line);border-radius:4px;padding:40px;background:linear-gradient(160deg,var(--slate),var(--navy-deep))}
+.light .panel{background:var(--white);border-color:var(--line-light)}
+.band--white.light .panel{background:var(--paper)}
+.panel h3{font-size:1.6rem;margin-bottom:14px;color:var(--gold-soft)}
+.light .panel h3{color:var(--gold-ink)}
+.panel p{color:#e8e3d6;font-size:.96rem;margin-bottom:14px}
+.light .panel p{color:var(--ink-soft)}
+.badge{display:inline-block;margin-top:8px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);padding:6px 12px;border-radius:2px}
+.light .badge{color:var(--gold-ink);border-color:rgba(138,100,32,.35)}
+.prose h2{font-size:clamp(2rem,3.4vw,2.8rem);margin:14px 0 18px}
+.prose p{margin-bottom:16px;max-width:64ch}
+.prose .visit{display:inline-block;margin-top:10px}
+/* section-level "read more" link, sitting below a grid rather than inside prose */
+.sec-more{margin-top:40px}
+
+/* prose with no panel beside it: fill the whole wrap by putting the heading in
+   its own column, so the body keeps a readable measure instead of one long line */
+/* one wide column, heading and body stacked together. --solo sits flush with
+   the wrap's left edge so it lines up with the rest of the page; --center
+   is the same column centred instead. */
+.prose--solo,.prose--center{max-width:820px}
+.prose--center{margin:0 auto}
+.prose--solo p,.prose--solo .pull,
+.prose--center p,.prose--center .pull{max-width:none}
+
+.prose--wide{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
+.prose--wide .prose-head h2{margin-bottom:0}
+.prose--wide .prose-body > :last-child{margin-bottom:0}
+.prose--wide p,.prose--wide .pull{max-width:none}
+
+/* pull-quote card (papal quotation) */
+.quote-card{align-self:start}
+.quote-card blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,2.1vw,1.62rem);
+  line-height:1.38;font-weight:500;margin-bottom:22px}
+.quote-card .src{font-size:.82rem;line-height:1.55;color:var(--ink-soft);
+  border-top:1px solid var(--line-light);padding-top:15px}
+.quote-card .src strong{display:block;font-weight:600;color:var(--ink);font-size:.9rem;margin-bottom:2px}
+.quote-card .src cite{font-style:italic}
+.pull{font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1.34;
+  border-left:2px solid var(--gold-ink);padding:6px 0 6px 26px;margin:34px 0;max-width:36ch}
+.light .pull{color:var(--ink)}
+
+/* ---------- CONTACT ---------- */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.field{margin-bottom:20px;display:block}
+.field span{display:block;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px;font-weight:600}
+.field input,.field textarea,.field select{
+  width:100%;font-family:inherit;font-size:.97rem;color:var(--ink);background:var(--white);
+  border:1px solid var(--line-light);border-radius:3px;padding:12px 14px}
+.field textarea{min-height:150px;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold-ink);outline:none;box-shadow:0 0 0 3px rgba(138,100,32,.13)}
+.form-note{font-size:.82rem;line-height:1.55;color:var(--ink-soft);margin-top:18px;max-width:52ch}
+.detail-list{list-style:none;display:flex;flex-direction:column;gap:22px;margin-top:8px}
+.detail-list dt{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);font-weight:600;margin-bottom:5px}
+.detail-list dd{font-size:1.02rem}
+.faq{border-top:1px solid var(--line-light);padding:22px 0}
+.faq:last-child{border-bottom:1px solid var(--line-light)}
+.faq h3{font-size:1.25rem;margin-bottom:7px}
+.faq p{color:var(--ink-soft);font-size:.97rem;max-width:64ch}
+
+/* ---------- CTA BAND ---------- */
+.cta-band{text-align:center;background:radial-gradient(ellipse 80% 120% at 50% 0%,rgba(195,154,77,.14),transparent 60%),var(--navy-deep);border-top:1px solid var(--line)}
+.cta-band h2{font-size:clamp(2.2rem,4vw,3.2rem);margin-bottom:16px}
+.cta-band p{color:#e8e3d6;max-width:46ch;margin:0 auto 30px;font-size:1.08rem}
+.cta-band .cta-mark{width:56px;margin:0 auto 22px;opacity:.85}
+
+/* ---------- FOOTER ---------- */
+footer.site{background:var(--navy-deep);border-top:1px solid var(--line);padding:52px 0 36px;font-size:.88rem;color:var(--muted)}
+footer.site .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:28px}
+footer.site .brand{font-size:1.25rem}
+footer.site .foot-tag{margin-top:10px;max-width:34ch}
+footer.site .foot-nav{display:flex;gap:34px;flex-wrap:wrap}
+footer.site .foot-nav a:hover{color:var(--gold)}
+.foot-note{margin-top:34px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.78rem}
+.foot-note .lat{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-soft);font-size:.95rem}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:860px){
+  /* full-width panel dropping from under the header, with each link as its own
+     tappable row rather than a small dropdown anchored to the right */
+  .navlinks{display:none;flex-direction:column;align-items:stretch;gap:0;
+    position:absolute;top:76px;left:0;right:0;
+    background:var(--navy-deep);padding:6px 28px 22px;border-radius:0;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    box-shadow:0 16px 30px rgba(6,12,20,.4)}
+  .navlinks.open{display:flex}
+  .navlinks a:not(.btn){padding:16px 0;font-size:1rem;border-bottom:1px solid rgba(195,154,77,.14)}
+  .navlinks a.is-active:not(.btn){padding-bottom:16px;border-bottom-color:var(--gold)}
+  .navlinks .btn{margin-top:18px;text-align:center;padding:14px 22px}
+  .menu-btn{display:block}
+  .grid-2,.grid-3,.split,.contact-grid,.prose--wide{grid-template-columns:1fr}
+  .prose--wide{gap:22px}
+  .case{grid-template-columns:1fr;padding:28px}
+  .ba{grid-template-columns:1fr}
+  .reveal-hint{display:none}
+  .band{padding:52px 0}
+  .hero-body{grid-template-columns:1fr;gap:34px}
+  .hero-art{max-width:250px;justify-self:center}
+  .facts .wrap{grid-template-columns:1fr;gap:22px}
+  .facts .fact + .fact{border-left:0;margin-left:0;padding:22px 0 0;border-top:1px solid var(--line)}
+  .page-head .watermark{display:none}
+  .step{grid-template-columns:44px 1fr;gap:16px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
